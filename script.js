@@ -1,6 +1,24 @@
-import data from './data-pretty.json' with { type: 'json' };
-//checking if the data is loaded correctly
-console.log(data);
+let products = [];
+
+async function init() {
+  const saved = localStorage.getItem("products");
+
+  if (saved) {
+    products = JSON.parse(saved);
+  } else {
+    const response = await fetch("https://dummyjson.com/products?limit=100");
+    const data = await response.json();
+    products = data.products;
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+
+  for (const p of products) {
+    showProduct(p);
+  }
+  showView("home");
+}
+
+init();
 
 
 
@@ -40,7 +58,7 @@ function showProduct(p) {
   document.getElementById("grid").appendChild(card);
 }
 
-for (let p of data.products) {
+for (let p of products) {
   showProduct(p);
 }
 
