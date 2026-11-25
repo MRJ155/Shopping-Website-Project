@@ -1,16 +1,49 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shopping Website</title>
-  <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
-  <main class="page">
-    <h1>Shopping Website</h1>
-    <div id="grid" class="grid"></div>
-  </main>
-  <script src="script.js" type="module"></script>
-</body>
+  <head id=>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Website</title>
+    <link rel="stylesheet" href="styles/style.css">
+  </head>
+  <body>
+    <header id="site-header">
+      <button class="logo" data-view="home">ShopSite</button>
+
+      <nav>
+        <button data-view="home">Home</button>
+        <button data-view="browse">Browse</button>
+        <button data-action="about">About</button>
+      </nav>
+
+      <button class="cart-btn" data-view="cart">
+        Cart <span id="cart-count">0</span>
+      </button>
+    </header>
+    <main class="page">
+
+      <article id="home" class="view">
+        <h3>Online Shopping Website</h3>
+      </article>
+      <article id="browse" class="view">
+        <div id="grid" class="grid"></div>
+
+        <section id="filter">
+
+        </section>
+      </article>
+
+      <article id="singleprod" class="view"></article>
+
+      <article id="cart" class="view">
+        <h3>Cart</h3>
+      </article>
+
+      <dialog id="about">
+        <h3>about us</h3>
+      </dialog>
+
+    </main>
+    <script src="script.js" type="module"></script>
+  </body>
 </html>

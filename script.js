@@ -2,6 +2,9 @@ import data from './data-pretty.json' with { type: 'json' };
 //checking if the data is loaded correctly
 console.log(data);
 
+
+
+//displays the gride of items from array in the JSON file
 function showProduct(p) {
   const card = document.createElement("div");
   card.className = "card";
@@ -37,10 +40,30 @@ function showProduct(p) {
   document.getElementById("grid").appendChild(card);
 }
 
-for (let p of data.products.slice(0, 20)) {
+for (let p of data.products) {
   showProduct(p);
 }
 
 
+function showView(id) {
+  const parents = document.querySelectorAll(".view");
+  for (let item of parents) {
+    item.classList.add('hidden');
+  }
+  document.getElementById(id).classList.remove('hidden');
+}
+
+showView("home");
 
 
+document.getElementById("site-header").addEventListener("click", (e) => {
+
+  const btn = e.target.closest("[data-view], [data-action]");
+  if (!btn) return;
+
+  if (btn.dataset.view) {
+    showView(btn.dataset.view);
+  } else if (btn.dataset.action === "about") {
+    document.getElementById("about").showModal();
+  }
+});
