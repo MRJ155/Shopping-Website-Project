@@ -1,57 +1,211 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head id=>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shopping Website</title>
-    <link rel="stylesheet" href="styles/style.css">
-  </head>
-  <body>
-    <header id="site-header">
-      <button class="logo" data-view="home">ShopSite</button>
 
-      <nav>
-        <button data-view="home">Home</button>
-        <button data-view="browse">Browse</button>
-        <button data-action="about">About</button>
-      </nav>
+<head id=>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping Website</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
 
-      <button class="cart-btn" data-view="cart">
-        Cart <span id="cart-count">0</span>
-      </button>
-    </header>
-    <main class="page">
+<body>
+  <header id="site-header">
+    <button class="logo" data-view="home">ShopSite</button>
 
-      <article id="home" class="view">
-        <h3>Online Shopping Website</h3>
-      </article>
-      <article id="browse" class="view">
+    <nav>
+      <button data-view="home">Home</button>
+      <button data-view="browse">Browse</button>
+      <button data-action="about">About</button>
+    </nav>
+
+    <button class="cart-btn" data-view="cart">
+      Cart <span id="cart-count">0</span>
+    </button>
+  </header>
+  <main class="page">
+
+    <article id="home" class="view">
+      <section class="hero">
+        <h2>Find something you'll love</h2>
+        <p>Beauty, furniture, groceries, laptops and more.</p>
+        <button class="hero-btn" data-view="browse">Shop Now</button>
+      </section>
+
+      <h3>Featured Products</h3>
+      <div id="featured" class="featured"></div>
+    </article>
+
+
+
+    <article id="browse" class="view">
+      <h2>Browse</h2>
+
+      <section id="filter">
+        <h3>Departments</h3>
+        <form id="filter-form">
+          <summary>Name</summary>
+          <input type="text" id="filter-name">
+          </details>
+
+          <details>
+            <summary>Category</summary>
+            <div id="category-list"></div>
+          </details>
+
+          <details>
+            <summary>Rating</summary>
+            <select id="filter-rating">
+              <option value="0">Any</option>
+              <option value="1">1 star &amp; up</option>
+              <option value="2">2 stars &amp; up</option>
+              <option value="3">3 stars &amp; up</option>
+              <option value="4">4 stars &amp; up</option>
+            </select>
+          </details>
+
+          <details>
+            <summary>Price</summary>
+            <label>Over $ <input type="number" id="price-min"></label>
+            <label>Under $ <input type="number" id="price-max"></label>
+          </details>
+        </form>
+      </section>
+
+      <section id="results">
+        <div class="results-bar">
+          <span id="result-count"></span>
+          <select id="sort">
+            <option value="title">Product Name</option>
+            <option value="price">Price</option>
+            <option value="category">Category</option>
+          </select>
+          <button id="clear-btn">Clear All</button>
+        </div>
         <div id="grid" class="grid"></div>
+        <p id="no-results" class="hidden">No products match your filters.</p>
+      </section>
+      </div>
+    </article>
 
-        <section id="filter">
+    <article id="singleprod" class="view hidden">
+      <nav id="path"></nav>
 
-        </section>
-      </article>
+      <div class="product-top">
+        <img id="product-img" alt="">
+        <div class="product-info">
+          <h2 id="product-title"></h2>
+          <p id="product-price" class="product-price"></p>
+          <p id="product-sku"></p>
+          <p id="product-rating"></p>
+          <div id="product-tags" class="tags"></div>
+          <p id="product-stock"></p>
+          <p id="product-desc"></p>
 
-      <article id="singleprod" class="view"></article>
+          <div class="buy-box">
+            <label>Quantity <input type="number" id="qty" value="1" min="1"></label>
+            <button id="add-detail-btn">+ Add to Cart</button>
+          </div>
+        </div>
+      </div>
 
-      <article id="cart" class="view">
-        <h3>Cart</h3>
-      </article>
+      <div class="tabs">
+        <button data-tab="specs">Specifications</button>
+        <button data-tab="reviews">Reviews</button>
+      </div>
+      <div id="tab-specs" class="tab-panel"></div>
+      <div id="tab-reviews" class="tab-panel hidden"></div>
+    </article>
 
-      <dialog id="about">
-        <h3>about us</h3>
-      </dialog>
+    <article id="cart" class="view hidden">
+      <h2>Shopping Cart</h2>
 
-    </main>
-    <footer>
+      <p id="cart-empty" class="hidden">Your cart is empty.</p>
+
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+
+      <div class="cart-bottom">
+        <div class="cart-box">
+          <h3>Shipping</h3>
+          <select id="ship-method">
+            <option value="standard">Standard</option>
+            <option value="express">Express</option>
+            <option value="priority">Priority</option>
+          </select>
+          <select id="ship-dest">
+            <option value="canada">Canada</option>
+            <option value="us">United States</option>
+            <option value="international">International</option>
+          </select>
+        </div>
+
+        <div class="cart-box">
+          <h3>Summary</h3>
+          <p>Merchandise <span id="sum-merch"></span></p>
+          <p>Shipping <span id="sum-ship"></span></p>
+          <p>Tax <span id="sum-tax"></span></p>
+          <p class="total">Total <span id="sum-total"></span></p>
+          <button id="checkout-btn" data-action="checkout">Checkout</button>
+        </div>
+      </div>
+    </article>
+
+    <div id="toast" class="hidden"></div>
+
+    <dialog id="about">
+      <form method="dialog">
+        <button class="close-x" aria-label="Close">&times;</button>
+      </form>
+
+      <h2>About Us</h2>
       <p>
-        <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank"
-          rel="noopener">GitHub Repo</a>
+        ShopSite is a single-page online store built for COMP 3512 Assignment 2.
+        You can browse and filter products, view product details, and add items to a cart.
       </p>
-      <p>COMP 3512 Assignment 2 &middot; Your Name</p>
-      <p>&copy; 2026 ShopSite</p>
-    </footer>
-    <script src="script.js" type="module"></script>
-  </body>
+
+      <h3>Technologies</h3>
+      <ul>
+        <li>HTML, CSS and JavaScript (no libraries)</li>
+        <li>DummyJSON API for product data</li>
+        <li>localStorage for caching data and saving the cart</li>
+        <li>GitHub Pages for hosting</li>
+      </ul>
+
+      <h3>Created by</h3>
+      <p>Arvin Johal</p>
+
+      <p>
+        <a href="https://https://github.com/MRJ155/Shopping-Website-Project" target="_blank" rel="noopener">
+          View the GitHub repo
+        </a>
+      </p>
+
+      <form method="dialog">
+        <button class="close-btn">Close</button>
+      </form>
+    </dialog>
+
+  </main>
+  <footer>
+    <p>
+      <a href="https://https://github.com/MRJ155/Shopping-Website-Project" target="_blank" rel="noopener">GitHub
+        Repo</a>
+    </p>
+    <p>COMP 3512 Assignment 2 &middot; Arvin Johal</p>
+    <p>&copy; 2026 ShopSite</p>
+  </footer>
+  <script src="script.js" type="module"></script>
+</body>
+
 </html>
